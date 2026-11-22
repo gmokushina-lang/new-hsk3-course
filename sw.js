@@ -1,4 +1,4 @@
-const CACHE='hsk3-mobile-v5',CORE=['./','./manifest.webmanifest','./icon-192.png','./icon-512.png','./mobile-compact-v4.css','./mobile-compact-v4.js','./image-list.json','./simple-draw-full-print.css','./simple-draw-full-print.js'];
+const CACHE='hsk3-mobile-v6',CORE=['./','./manifest.webmanifest','./icon-192.png','./icon-512.png','./mobile-compact-v4.css','./mobile-compact-v4.js','./image-list.json','./simple-draw-full-print.css','./simple-draw-full-print-v2.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(async keys=>{const dest=await caches.open(CACHE);for(const k of keys.filter(k=>k.startsWith('hsk3-mobile-')&&k!==CACHE)){const old=await caches.open(k);for(const req of await old.keys()){if(new URL(req.url).pathname.includes('/assets/')){const response=await old.match(req);if(response)await dest.put(req,response)}}await caches.delete(k)}}).then(()=>self.clients.claim())));
 const key=req=>{const u=new URL(typeof req==='string'?req:req.url);u.search='';u.hash='';return u.href};
