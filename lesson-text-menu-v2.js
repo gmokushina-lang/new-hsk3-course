@@ -1,0 +1,3 @@
+function chooseLessonTextJump(g){quickDrawDone();const cards=CARDS.filter(c=>c.group===g),at=cards.findIndex(c=>c.kind==='hsk-text');openGroup(g,Math.max(0,at));screen.scrollTop=0}
+function chooseLessonText(){if(!group){notice('Сначала открой нужный урок');return}const prefix=group.slice(0,3);modal('Текст',`<div class="text-menu">${['a','b','c','d'].map((l,i)=>`<button class="${group===prefix+l?'primary':''}" onclick="chooseLessonTextJump('${prefix+l}')">Текст ${i+1}</button>`).join('')}</div>`)}
+(()=>{const button=document.querySelector('.header-actions button[onclick="openRoute()"]');if(button){button.textContent='Текст';button.setAttribute('onclick','chooseLessonText()');button.id='textMenuButton'}})();
